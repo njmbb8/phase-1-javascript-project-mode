@@ -2,30 +2,31 @@
 
 <head>
     <title>Activity Selector</title>
+    <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>
-    <textarea name="activity" id="activity" cols="30" rows="10"></textarea>
+    <textarea name="activity" id="activity" cols="40" rows="10"></textarea>
     <form>
         <div>
-            <label for="eventType"><span>What type of activity would you like to do?</span></label>
+            <label for="eventType">What type of activity would you like to do?</label>
             <select name="eventType" id="type">
                 <option value="">random</option>
             </select>
         </div>
         <div id="difficultyInput">
-            <label for="minDifficultySetting"><span>Minimum Difficulty Rating:</span></label>
+            <label for="minDifficultySetting">Minimum Difficulty Rating:</label>
             <input type="range" name="minDifficultySetting" id="minDifficultySetting" min="0" max="1">
-            <label for="maxDifficultySetting"><span>Maximum Difficulty Rating:</span></label>
+            <label for="maxDifficultySetting">Maximum Difficulty Rating:</label>
             <input type="range" name="maxDifficultySetting" id="maxDifficultySetting" min="0" max="1">
         <div>
         <div id="participantsInput">
-            <label for="participants"><span>How many people will be in your party?</span></label>
+            <label for="participants">How many people will be in your party?</label>
             <input type="number" name="participants" id="participants">
         </div>
         <div id="costInput">
-            <label for="minCost"><span>Minimum Cost:</span></label>
+            <label for="minCost">Minimum Cost:</label>
             <input type="number" name="minCost" id="minCost" step="0.01">
-            <label for="maxCost"><span>Maximum Cost:</span></label>
+            <label for="maxCost">Maximum Cost:</label>
             <input type="number" name="maxCost" id="maxCost" step="0.01">
         </div>
     </form>
