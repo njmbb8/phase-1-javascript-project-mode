@@ -19,6 +19,19 @@ function populateActivityTypes() {
     })
 }
 
+searchByIDBtn.addEventListener('click', function(click){
+    click.preventDefault();
+    const activityID = searchByIdInput.value;
+    fetch(`http://www.boredapi.com/api/activity?key=${activityID}`)
+    .then((data) => data.json())
+    .then(function(activity){
+        let activityString = '';
+        Object.entries(activity).forEach(function(activity){
+            activityString += activity[0] + ': ' + activity[1] + '\n';
+        });
+        resultTextArea.value = activityString;
+    });
+});
 
 document.addEventListener('DOMContentLoaded', function(){
     populateActivityTypes();
