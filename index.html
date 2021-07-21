@@ -27,14 +27,14 @@
             <div>
             <div id="participantsInput">
                 <label for="participants">How many people will be in your party?(Leave blank to randomize)</label>
-                <input type="number" name="participants" id="participants">
+                <input type="number" name="participants" id="participants" min="0" step="1">
             </div>
             <div id="costInput">
                 <label for="minCost">Minimum Cost:(Leave blank to randomize)</label>
-                <input type="number" name="minCost" id="minCost" step="0.01">
+                <input type="number" name="minCost" id="minCost" step="0.01" min="0">
                 <br>
                 <label for="maxCost">Maximum Cost:(Leave blank to randomize)</label>
-                <input type="number" name="maxCost" id="maxCost" step="0.01">
+                <input type="number" name="maxCost" id="maxCost" step="0.01" min="0">
             </div>
             <button type="submit" id="submitButton">Get Active!</button>
         </form>
