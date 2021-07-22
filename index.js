@@ -1,5 +1,5 @@
 const activityTypes = ["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"];
-const activityTypeNode = document.getElementById('type');
+const activityTypeNode = document.getElementById('activityType');
 const minDifficultyNode = document.getElementById('minDifficultySetting');
 const maxDifficultyNode = document.getElementById('maxDifficultySetting');
 const participantNode = document.getElementById('participants');
@@ -16,24 +16,54 @@ function populateActivityTypes() {
         option.value = type;
         option.innerText = type;
         activityTypeNode.appendChild(option);
-    })
-}
+    });
+};
 
-searchByIDBtn.addEventListener('click', function(click){
-    click.preventDefault();
-    const activityID = searchByIdInput.value;
-    fetch(`http://www.boredapi.com/api/activity?key=${activityID}`)
+function displayResult(parameterString){
+    fetch(`http://www.boredapi.com/api/activity${parameterString}`)
     .then((data) => data.json())
     .then(function(activity){
         let activityString = '';
         Object.entries(activity).forEach(function(activity){
-            activityString += activity[0] + ': ' + activity[1] + '\n';
+            if(activity[0] === 'accessibility'){
+                activity[1] = 1 - activity[1];
+            }
+            activityString += activity[0][0].toUpperCase() + activity[0].substr(1) + ': ' + activity[1] + '\n';
         });
-        resultTextArea.value = activityString;
+        resultTextArea.value = activityString.replace('Key', 'ID').replace('Accessibility', 'Difficulty')
     });
+}
+
+searchByIDBtn.addEventListener('click', function(click){
+    click.preventDefault();
+    let parameterString = `?key=${searchByIdInput.value}`;
+    displayResult(parameterString)
+});
+
+submitButton.addEventListener('click', function(click){
+    click.preventDefault();
+    let parameterString = '?';
+    if(activityTypeNode.value !== ''){
+        parameterString += `type=${activityTypeNode.value}`;
+    }
+    if(participantNode.value !== 0 || participantNode !== ''){
+        if(parameterString !== '?'){
+            parameterString += '&';
+        }
+        if(participantNode.value !== ''){
+            parameterString += `participants=${participantNode.value}`;
+        }
+    }
+    if(parameterString !== '?'){
+        parameterString += '&';
+    }
+    parameterString += `minaccessibility=${minDifficultyNode.value}&maxaccessibility=${maxDifficultyNode.value}`;
+    parameterString += `&minprice=${minCostNode.value}&maxprice=${maxCostNode.value}`;
+
+    displayResult(parameterString);
 });
 
 document.addEventListener('DOMContentLoaded', function(){
     populateActivityTypes();
-})
+});
 
