@@ -197,3 +197,12 @@ removeBtn.addEventListener('click', function(click){
     })
     .catch((error) => console.log(error));
 });
+
+viewBtn.addEventListener('click', function(click){
+    click.preventDefault();
+    let activityKey = selectedActivity.id.substr(selectedActivity.id.indexOf('b')+1);
+    displayResult(`?key=${activityKey}`);
+    switchTabs(searchTab);
+    clearBtn.disabled = false;
+    favoriteBtn.disabled = false;
+})
