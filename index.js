@@ -9,6 +9,9 @@ const submitButton = document.getElementById('submitButton');
 const resultTextArea = document.getElementById('activity');
 const searchByIdInput = document.getElementById('idSearch');
 const searchByIDBtn = document.getElementById('searchByIDBtn');
+const tabsContainer = document.getElementById('tabs');
+const searchPage = document.getElementById('searchPage');
+const favoritesPage = document.getElementById('favoritesPage');
 
 function populateActivityTypes() {
     activityTypes.forEach(function(type){
@@ -69,3 +72,25 @@ document.addEventListener('DOMContentLoaded', function(){
     populateActivityTypes();
 });
 
+tabsContainer.addEventListener('click', function(event){
+    if(!event.target.classList.contains('active')){
+        let tab;
+        if(!event.target.classList.contains('tab')){
+            tab = event.target.parentElement;
+        }
+        else{
+            tab = event.target;
+        }
+        tab.classList.add('active');
+        if(tab.id === 'searchTab'){
+            searchPage.classList.remove('inactive');
+            favoritesPage.classList.add('inactive');
+            document.getElementById('favoritesTab').classList.remove('active');
+        }
+        else{
+            favoritesPage.classList.remove('inactive');
+            searchPage.classList.add('inactive');
+            document.getElementById('searchTab').classList.remove('active');
+        }
+    }
+});
