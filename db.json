@@ -1,19 +1,54 @@
 {
   "favorites": [
     {
+      "id": 1,
       "activity": "Learn how to fold a paper crane",
-      "accessibility": 0.05,
-      "type": "education",
-      "participants": 1,
-      "price": 0.1,
       "key": "3136036"
     },
     {
-      "activity": "Teach your dog a new trick",
-      "accessibility": 0.15,
-      "type": "relaxation",
-      "participants": 1,
-      "price":0.05
+      "id": 2,
+      "activity": "Learn how to play a new sport",
+      "key": "5808228"
+    },
+    {
+      "activity": "Learn about the Golden Ratio",
+      "key": "2095681",
+      "id": 3
+    },
+    {
+      "activity": "Text a friend you haven't talked to in a long time",
+      "key": "6081071",
+      "id": 4
+    },
+    {
+      "activity": "Learn Javascript",
+      "key": "3469378",
+      "id": 5
+    },
+    {
+      "activity": "Shred old documents you don't need anymore",
+      "key": "2430066",
+      "id": 6
+    },
+    {
+      "activity": "Take a hike at a local park",
+      "key": "8724324",
+      "id": 7
+    },
+    {
+      "activity": "Create a compost pile",
+      "key": "8631548",
+      "id": 8
+    },
+    {
+      "activity": "Create a compost pile",
+      "key": "8631548",
+      "id": 9
+    },
+    {
+      "activity": "Conquer one of your fears",
+      "key": "8344539",
+      "id": 10
     }
   ]
 }

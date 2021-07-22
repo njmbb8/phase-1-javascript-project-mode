@@ -10,14 +10,14 @@
 <body>
     <div id="container">
         <div id="tabs">
-            <div id="searchTab" class="tab">
+            <div id="searchTab" class="tab active">
                 <h3>Search</h3>
             </div>
-            <div id="favoritesTab" class="tab active">
+            <div id="favoritesTab" class="tab">
                 <h3>Favorites</h3>
             </div>
         </div>
-        <div id="searchPage" class="inactive">
+        <div id="searchPage">
             <div>
                 <div id="title">
                     <h2>Activity:</h2>
@@ -57,11 +57,13 @@
                     <input type="range" name="maxCost" id="maxCost" step="0.01" min="0" max="1" value="1">
                 </div>
                 <button type="submit" id="submitButton">Get Active!</button>
+                <button type="submit" id="clearButton" disabled>Clear Activity</button>
+                <button type="submit" id="favoriteButton" disabled>Add to Favorites</button>
             </form>
         </div>
 
-        <div id="favoritesPage">
-            <H3>Favorites:</H3>
+        <div id="favoritesPage"  class="inactive">
+            <H2>Favorites:</H2>
             <ul  id="favoritesList">
             </ul>
             <div id="controlS">

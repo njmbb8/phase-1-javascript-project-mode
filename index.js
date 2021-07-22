@@ -13,6 +13,10 @@ const tabsContainer = document.getElementById('tabs');
 const searchPage = document.getElementById('searchPage');
 const favoritesPage = document.getElementById('favoritesPage');
 const favoritesList = document.getElementById('favoritesList');
+const clearBtn = document.getElementById('clearButton');
+const favoriteBtn = document.getElementById('favoriteButton');
+const favoriteTab = document.getElementById('favoritesTab');
+const searchTab = document.getElementById('searchTab');
 let activeActivity;
 
 function populateActivityTypes() {
@@ -31,27 +35,46 @@ function displayResult(parameterString){
         let activityString = '';
         Object.entries(activity).forEach(function(activity){
             if(activity[0] === 'accessibility'){
-                activity[1] = 1 - activity[1];
+                activity[1] = 1.0 - activity[1];
             }
-            else if(activity[1] !== ''){
+            if(activity[1] !== ''){
                 activityString += activity[0][0].toUpperCase() + activity[0].substr(1) + ': ' + activity[1] + '\n';
             }
         });
-        resultTextArea.value = activityString.replace('Key', 'ID').replace('Accessibility', 'Difficulty')
+        resultTextArea.value = activityString.replace('Key', 'ID').replace('Accessibility', 'Difficulty');
+        activeActivity = activity;
+        clearBtn.disabled = false;
+        favoriteBtn.disabled = false;
     });
 }
 
 function populateFavoritesPage(){
+    favoritesList.innerHTML = '';
     fetch('http://localhost:3000/favorites')
     .then((data) => data.json())
     .then(function(activitiesList){
         activitiesList.forEach(function(activity){
             const favoriteNode = document.createElement('li');
-            favoriteNode.id = `a${activity.key}`;
+            favoriteNode.id = `a${activity.id}b${activity.key}`;
             favoriteNode.innerText = activity.activity;
             favoritesList.appendChild(favoriteNode);
         });
     });
+}
+
+//tab node passed in will be made active
+function switchTabs(tab){
+    tab.classList.add('active');
+    if(tab.id === 'searchTab'){
+        searchPage.classList.remove('inactive');
+        favoritesPage.classList.add('inactive');
+        document.getElementById('favoritesTab').classList.remove('active');
+    }
+    else{
+        favoritesPage.classList.remove('inactive');
+        searchPage.classList.add('inactive');
+        document.getElementById('searchTab').classList.remove('active');
+    }
 }
 
 searchByIDBtn.addEventListener('click', function(click){
@@ -97,16 +120,35 @@ tabsContainer.addEventListener('click', function(event){
         else{
             tab = event.target;
         }
-        tab.classList.add('active');
-        if(tab.id === 'searchTab'){
-            searchPage.classList.remove('inactive');
-            favoritesPage.classList.add('inactive');
-            document.getElementById('favoritesTab').classList.remove('active');
-        }
-        else{
-            favoritesPage.classList.remove('inactive');
-            searchPage.classList.add('inactive');
-            document.getElementById('searchTab').classList.remove('active');
-        }
+        switchTabs(tab);
     }
+});
+
+clearBtn.addEventListener('click', function(click){
+    click.preventDefault();
+    resultTextArea.value = '';
+    activeActivity = '';
+    favoriteBtn.disabled = true;
+    clearBtn.disabled = true;
+});
+
+favoriteBtn.addEventListener('click', function(click){
+    click.preventDefault();
+    const postContext = {
+        "method": 'POST',
+        "headers": {
+            "Content-Type": 'application/json',
+            "accept": 'application/json'
+        },
+        body:JSON.stringify({
+            activity: activeActivity.activity,
+            key: activeActivity.key
+        })
+    };
+
+    fetch('http://localhost:3000/favorites', postContext)
+    .then(function(){
+        populateFavoritesPage();
+        switchTabs(favoriteTab);
+    });
 });
