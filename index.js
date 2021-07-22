@@ -17,7 +17,10 @@ const clearBtn = document.getElementById('clearButton');
 const favoriteBtn = document.getElementById('favoriteButton');
 const favoriteTab = document.getElementById('favoritesTab');
 const searchTab = document.getElementById('searchTab');
-let activeActivity;
+const removeBtn = document.getElementById('removeButton');
+const viewBtn = document.getElementById('viewButton');
+let activeActivity = '';
+let selectedActivity = '';
 
 function populateActivityTypes() {
     activityTypes.forEach(function(type){
@@ -46,7 +49,15 @@ function displayResult(parameterString){
         clearBtn.disabled = false;
         favoriteBtn.disabled = false;
     });
-}
+};
+
+function addFavoriteFromJSON(activity){
+    const favoriteNode = document.createElement('li');
+    favoriteNode.classList.add('favorite');
+    favoriteNode.id = `a${activity.id}b${activity.key}`;
+    favoriteNode.innerText = activity.activity;
+    favoritesList.appendChild(favoriteNode);
+};
 
 function populateFavoritesPage(){
     favoritesList.innerHTML = '';
@@ -54,13 +65,10 @@ function populateFavoritesPage(){
     .then((data) => data.json())
     .then(function(activitiesList){
         activitiesList.forEach(function(activity){
-            const favoriteNode = document.createElement('li');
-            favoriteNode.id = `a${activity.id}b${activity.key}`;
-            favoriteNode.innerText = activity.activity;
-            favoritesList.appendChild(favoriteNode);
+            addFavoriteFromJSON(activity);
         });
     });
-}
+};
 
 //tab node passed in will be made active
 function switchTabs(tab){
@@ -75,7 +83,7 @@ function switchTabs(tab){
         searchPage.classList.add('inactive');
         document.getElementById('searchTab').classList.remove('active');
     }
-}
+};
 
 searchByIDBtn.addEventListener('click', function(click){
     click.preventDefault();
@@ -148,7 +156,44 @@ favoriteBtn.addEventListener('click', function(click){
 
     fetch('http://localhost:3000/favorites', postContext)
     .then(function(){
-        populateFavoritesPage();
+        addFavoriteFromJSON(activeActivity);
         switchTabs(favoriteTab);
     });
+});
+
+favoritesList.addEventListener('click', function(click){
+    click.preventDefault();
+    if(click.target.classList.contains('favorite')){
+        if(selectedActivity !== ''){
+            selectedActivity.style.backgroundColor = '';
+        }
+        click.target.style.backgroundColor = 'lightgrey';
+        removeBtn.disabled = false;
+        viewBtn.disabled = false;
+        selectedActivity = click.target;
+    }
+    else{
+        selectedActivity.style.backgroundColor = '';
+        removeBtn.disabled = true;
+        viewBtn.disabled = true;
+        selectedActivity = '';
+    }
+});
+
+removeBtn.addEventListener('click', function(click){
+    const activityID = selectedActivity.id.substr(1, selectedActivity.id.indexOf('b')-1);
+    const delContext = {
+        "method": 'DELETE',
+        headers:{
+            "Content-Type": 'application/json',
+            "accept": 'application/json'
+        }
+    }
+    fetch(`http://localhost:3000/favorites/${activityID}`, delContext)
+    .then(function(){
+        favoritesList.removeChild(selectedActivity);
+        removeBtn.disabled = true;
+        viewBtn.disabled = true;
+    })
+    .catch((error) => console.log(error));
 });
