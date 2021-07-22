@@ -12,6 +12,8 @@ const searchByIDBtn = document.getElementById('searchByIDBtn');
 const tabsContainer = document.getElementById('tabs');
 const searchPage = document.getElementById('searchPage');
 const favoritesPage = document.getElementById('favoritesPage');
+const favoritesList = document.getElementById('favoritesList');
+let activeActivity;
 
 function populateActivityTypes() {
     activityTypes.forEach(function(type){
@@ -36,6 +38,19 @@ function displayResult(parameterString){
             }
         });
         resultTextArea.value = activityString.replace('Key', 'ID').replace('Accessibility', 'Difficulty')
+    });
+}
+
+function populateFavoritesPage(){
+    fetch('http://localhost:3000/favorites')
+    .then((data) => data.json())
+    .then(function(activitiesList){
+        activitiesList.forEach(function(activity){
+            const favoriteNode = document.createElement('li');
+            favoriteNode.id = `a${activity.key}`;
+            favoriteNode.innerText = activity.activity;
+            favoritesList.appendChild(favoriteNode);
+        });
     });
 }
 
@@ -70,6 +85,7 @@ submitButton.addEventListener('click', function(click){
 
 document.addEventListener('DOMContentLoaded', function(){
     populateActivityTypes();
+    populateFavoritesPage();
 });
 
 tabsContainer.addEventListener('click', function(event){

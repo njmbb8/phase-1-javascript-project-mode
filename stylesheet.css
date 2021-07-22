@@ -32,6 +32,7 @@ body{
 .tab{
     background-color: white;
     border: 1px black solid;
+    cursor: pointer;
 }
 
 .active{
@@ -44,4 +45,5 @@ body{
 
 #favoritesList{
     height: 375px;
+    overflow-y: scroll;
 }
