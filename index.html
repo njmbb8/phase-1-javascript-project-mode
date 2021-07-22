@@ -9,46 +9,69 @@
 </head>
 <body>
     <div id="container">
-        <div id="header">
-            <div id="title">
-                <h2>Activity:</h2>
+        <div id="tabs">
+            <div id="searchTab" class="tab active">
+                <h3>Search</h3>
             </div>
-            <form id="searchByID">
-                <label for="idSearch">Search by ID</label>
-                <div>
-                    <input type="text" name="idSearch" id="idSearch">
-                    <button type="submit" id="searchByIDBtn">Search</button>
+            <div id="favoritesTab" class="tab">
+                <h3>Favorites</h3>
+            </div>
+        </div>
+        <div id="searchPage" class="inactive">
+            <div>
+                <div id="title">
+                    <h2>Activity:</h2>
                 </div>
+                <form id="searchByID">
+                    <label for="idSearch">Search by ID</label>
+                    <div>
+                        <input type="text" name="idSearch" id="idSearch">
+                        <button type="submit" id="searchByIDBtn">Search</button>
+                    </div>
+                </form>
+            </div>
+            <textarea name="activity" id="activity" cols="40" rows="10"></textarea>
+            <form>
+                <div>
+                    <label for="activityType">What type of activity would you like to do?</label>
+                    <select name="activityType" id="activityType">
+                        <option value="">Random</option>
+                    </select>
+                </div>
+                <div id="difficultyInput">
+                    <label for="minDifficultySetting">Minimum Difficulty Rating:</label>
+                    <input type="range" name="minDifficultySetting" id="minDifficultySetting" min="0" max="1" value="0" step="0.01">
+                    <br>
+                    <label for="maxDifficultySetting">Maximum Difficulty Rating:</label>
+                    <input type="range" name="maxDifficultySetting" id="maxDifficultySetting" min="0" max="1" value="1" step="0.01">
+                </div>
+                <div id="participantsInput">
+                    <label for="participants">How many people will be in your party?(Leave blank to randomize)</label>
+                    <input type="number" name="participants" id="participants" min="0" step="1">
+                </div>
+                <div id="costInput">
+                    <label for="minCost">Minimum Cost:</label>
+                    <input type="range" name="minCost" id="minCost" step="0.01" min="0" max="1" value="0">
+                    <br>
+                    <label for="maxCost">Maximum Cost:</label>
+                    <input type="range" name="maxCost" id="maxCost" step="0.01" min="0" max="1" value="1">
+                </div>
+                <button type="submit" id="submitButton">Get Active!</button>
             </form>
         </div>
-        <textarea name="activity" id="activity" cols="40" rows="10"></textarea>
-        <form>
-            <div>
-                <label for="activityType">What type of activity would you like to do?</label>
-                <select name="activityType" id="activityType">
-                    <option value="">Random</option>
-                </select>
+
+        <div id="favoritesPage">
+            <H3>Favorites:</H3>
+            <div class="editable" contenteditable="true" id="favoritesList">
+                <ul>
+                    <li>this is a test</li>
+                </ul>
             </div>
-            <div id="difficultyInput">
-                <label for="minDifficultySetting">Minimum Difficulty Rating:</label>
-                <input type="range" name="minDifficultySetting" id="minDifficultySetting" min="0" max="1" value="0" step="0.01">
-                <br>
-                <label for="maxDifficultySetting">Maximum Difficulty Rating:</label>
-                <input type="range" name="maxDifficultySetting" id="maxDifficultySetting" min="0" max="1" value="1" step="0.01">
+            <div id="controlS">
+                <button type="submit">View Activity</button>
+                <button type="submit">Remove Activity</button>
             </div>
-            <div id="participantsInput">
-                <label for="participants">How many people will be in your party?(Leave blank to randomize)</label>
-                <input type="number" name="participants" id="participants" min="0" step="1">
-            </div>
-            <div id="costInput">
-                <label for="minCost">Minimum Cost:</label>
-                <input type="range" name="minCost" id="minCost" step="0.01" min="0" max="1" value="0">
-                <br>
-                <label for="maxCost">Maximum Cost:</label>
-                <input type="range" name="maxCost" id="maxCost" step="0.01" min="0" max="1" value="1">
-            </div>
-            <button type="submit" id="submitButton">Get Active!</button>
-        </form>
+        </div>
     </div>
         
     <script src="./index.js"></script>

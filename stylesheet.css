@@ -1,7 +1,13 @@
 body{
+    background-color: rgb(69, 69, 69);
+    overflow: hidden;
+}
+
+#container{
     width: 300px;
-    margin: 0 auto;
-    padding: 5%;
+    margin: 5% auto;
+    padding: 3% 2% 1%  2%;
+    background-color: darkgray;
 }
 
 #title{
@@ -15,4 +21,27 @@ body{
 
 #idSearch{
     width: 50%;
+}
+
+#tabs{
+    display: grid;
+    grid-template-columns: auto auto;
+    text-align: center;
+}
+
+.tab{
+    background-color: white;
+    border: 1px black solid;
+}
+
+.active{
+    background-color: rgb(35, 35, 35);
+}
+
+.inactive{
+    display:none;
+}
+
+#favoritesList{
+    height: 375px;
 }

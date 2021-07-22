@@ -14,7 +14,7 @@ function populateActivityTypes() {
     activityTypes.forEach(function(type){
         const option = document.createElement('option');
         option.value = type;
-        option.innerText = type;
+        option.innerText = type[0].toUpperCase() + type.substr(1);
         activityTypeNode.appendChild(option);
     });
 };
@@ -28,7 +28,9 @@ function displayResult(parameterString){
             if(activity[0] === 'accessibility'){
                 activity[1] = 1 - activity[1];
             }
-            activityString += activity[0][0].toUpperCase() + activity[0].substr(1) + ': ' + activity[1] + '\n';
+            else if(activity[1] !== ''){
+                activityString += activity[0][0].toUpperCase() + activity[0].substr(1) + ': ' + activity[1] + '\n';
+            }
         });
         resultTextArea.value = activityString.replace('Key', 'ID').replace('Accessibility', 'Difficulty')
     });
